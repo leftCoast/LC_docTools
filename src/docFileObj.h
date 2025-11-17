@@ -40,11 +40,6 @@
 
 #define TEMP_FOLDER		"/temp/"		// Default folder to save temporary edit files in.
 #define FILE_SEARCH_MS	500			// Amount of milliseconds allowed to find a temp file name.
-
-// #ifdef FILE_WRITE
-// #undef FILE_WRITE
-// #define FILE_WRITE (O_READ | O_WRITE | O_CREAT)
-// #endif
 	
 	
 class docFileObj {

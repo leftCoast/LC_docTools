@@ -230,7 +230,8 @@ void docFileObj::setAsAutoGen(bool trueFalse) { autoGenFile = trueFalse; }
 bool docFileObj::fileEdited(void) {  return mode==fEdited; }
 
 
-// This should pass back the name of the file for our document.
+// This should 
+
 char* docFileObj::getName(void) {
 	
 	filePath aPath;
