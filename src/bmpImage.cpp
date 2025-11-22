@@ -82,15 +82,6 @@ bmpImage::bmpImage(const char* filePath)
 bmpImage::~bmpImage(void) { freeStr(&newImgPath); }
 
 
-// Setup for the next createNewDocFile() call.
-void bmpImage::setPWH(const char* imgPath,int w,int h) { 
-
-	heapStr(&newImgPath,imgPath);
-	newW	= w;
-	newH	= h;
-}
-
-
 bool bmpImage::setNewBMPFile(const char* BMPPath,int w,int h) {
 
 	tempStr newPath(BMPPath);								// Save a local copy..
@@ -107,6 +98,15 @@ bool bmpImage::setNewBMPFile(const char* BMPPath,int w,int h) {
 
 // We get a general "We need a new file now" call. So using defaults..
 bool bmpImage::createNewDocFile(void) { return setNewBMPFile(newImgPath,newW,newH); }
+
+
+// Setup for the next createNewDocFile() call.
+void bmpImage::setPWH(const char* imgPath,int w,int h) { 
+
+	heapStr(&newImgPath,imgPath);
+	newW	= w;
+	newH	= h;
+}
 
 
 // Grab a pixel from this location from your image file.

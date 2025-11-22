@@ -14,9 +14,9 @@ class bmpImage :	public baseImage {
 				bmpImage(const char* filePath);
 	virtual	~bmpImage(void);
 	
-				void		setPWH(const char* imgPath,int w,int h);
 	virtual	bool		setNewBMPFile(const char* BMPPath,int w,int h);
 	virtual	bool		createNewDocFile(void);
+				void		setPWH(const char* imgPath,int w,int h);
 	virtual	RGBpack	getRawPixel(int x,int y);
 	virtual	void		setRawPixel(int x,int y,RGBpack* anRGBPack);	
 	virtual	bool		checkDoc(File inFile);
