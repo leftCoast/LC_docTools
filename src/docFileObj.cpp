@@ -188,6 +188,7 @@ bool docFileObj::saveDocFile(const char* newFilePath) {
 // up to the user of this object.
 void docFileObj::closeDocFile(void) {
 
+
 	switch(mode) {									// Mode decides our action..
 		case fClosed		: return;			// If already closed, bolt.
 		case fOpenToRead	:						// If open to read..
@@ -199,7 +200,7 @@ void docFileObj::closeDocFile(void) {
 			SD.remove(editFilePath);			// We remove our document editing file.
 			freeStr(&editFilePath);				// Recycle the edit file path.
 		break;										//
-	}													//
+	}
 	mode = fClosed;								// Mode is now, closed.
 }
 

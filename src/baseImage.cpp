@@ -112,3 +112,4 @@ bool baseImage::checkXYLmits(int x, int y) {
 	if (y < 0 || y >= height) return false;	// If y is negative or past the bottom, bail.
 	return true;										// If we got this far, call it good.
 }
+
