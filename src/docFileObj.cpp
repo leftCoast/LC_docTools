@@ -41,14 +41,14 @@ docFileObj::~docFileObj(void) {
 // open to be used by the user for editing. And of course the user must call closed on it
 // when finished. But, before that, saveDocFile() needs to be called for saving changes to
 // the original file.
-bool docFileObj::openDocFile(int openMode) {
+bool docFileObj::openDocFile(fOpenMode openMode) {
 
 	File	tempFile;
 	bool	success;
 
 	success = false;																// Not a success yet..
 	if (docFilePath) {															// If we have a non-NULL path..
-		if (openMode==FILE_WRITE) {											// If they want to edit this file..
+		if (openMode==fWrite) {											// If they want to edit this file..
 			if (mode==fOpenToEdit || mode==fEdited) {						// If already open for editing.
 				ourFile.seek(ourFile.size());									// Opening a file to WRITE assumes you start at the end.
 				return true;														// Actually nothing else to do, return success!
@@ -56,7 +56,7 @@ bool docFileObj::openDocFile(int openMode) {
 			if (mode==fOpenToRead) {											// If currently open to read..
 				closeDocFile();													// We close the file to open later.
 			}
-			tempFile = SD.open(docFilePath,FILE_READ);					// Have a go at opening the doc file path.
+			tempFile = SD.open(docFilePath,FILE_READ);						// Have a go at opening the doc file path.
 			if (tempFile) {														// If we were able to open the file..
 				if (checkDoc(tempFile)) {										// If the file passed the acid test..
 					if (createEditPath()) {										// If we were able to create an edit path..
@@ -72,7 +72,7 @@ bool docFileObj::openDocFile(int openMode) {
 				}
 				tempFile.close();													// Close the doc file.
 			}
-		} else if (openMode==FILE_READ) {									// If they just want to read this file..
+		} else if (openMode==fRead) {											// If they just want to read this file..
 			if (mode==fOpenToRead) {											// If we're already open to read..
 				ourFile.seek(0);													// Opening to READ assumes you start at the beginning of the file.
 				return true;														// We're all set, lets go.
@@ -142,7 +142,7 @@ bool docFileObj::saveDocFile(const char* newFilePath) {
 					tempFile.close();										// Close the (new) file.
 					closeDocFile();										// Close ourselves..
 					if (changeDocFile(newFilePath)) {				// Switch to the (new) file we saved.
-						if (openDocFile(FILE_WRITE)) {				// If we can open the new doc file for writing..
+						if (openDocFile(fWrite)) {						// If we can open the new doc file for writing..
 							if (autoGenFile) {							// If this was originally an auto generated file..
 								SD.remove(savedPath);					// Delete the auto file.
 								autoGenFile = false;						// And we are no longer carrying an auto generated file.
@@ -154,7 +154,7 @@ bool docFileObj::saveDocFile(const char* newFilePath) {
 			} else {															// Else, mode is either closed or read only..
 				savedMode = mode;											// Save off the mode we started with.
 				if (mode==fClosed) {										// If the file's closed..
-					openDocFile(FILE_READ);								// Give it a shot to open it for reading.
+					openDocFile(fRead);								// Give it a shot to open it for reading.
 				}																//
 				if (mode==fOpenToRead) {								// If the file is open to read..
 					tempFile = SD.open(newFilePath,FILE_WRITE);	// Have a go at opening our (new) file path.
@@ -166,7 +166,7 @@ bool docFileObj::saveDocFile(const char* newFilePath) {
 						closeDocFile();									// Close ourselves..
 						if (changeDocFile(newFilePath)) {			// If we can switch to the (new) file we saved.
 							if (savedMode==fOpenToRead) {				// If the original was open for reading..
-								if (openDocFile(FILE_READ)) {			// If we can Open the new doc file for reading..
+								if (openDocFile(fRead)) {			// If we can Open the new doc file for reading..
 									success = true;						// We'll call that a success!
 								}												//
 							} else {											// Else it was originally closed..

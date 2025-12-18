@@ -39,8 +39,24 @@
 #include <SDTools.h>
 
 #define TEMP_FOLDER		"/temp/"		// Default folder to save temporary edit files in.
-#define FILE_SEARCH_MS	500			// Amount of milliseconds allowed to find a temp file name.
+#define FILE_SEARCH_MS	500			// Amount of ms allowed to find a temp file name.
 	
+	
+//****************************************************************************************
+//
+// Different processors all use FILE_READ, FILE_WRITE. But they define them in strange
+// ways. So you can't rely on them for anything but actually opening files. If you want to
+// pass what the user is asking for? You can't use them. (Was a shock to ne!)
+//
+// Hence : fOpenMode
+//
+//****************************************************************************************
+
+enum fOpenMode {
+	fRead,
+	fWrite
+};
+
 	
 class docFileObj {
 
@@ -51,7 +67,7 @@ class docFileObj {
 	virtual		~docFileObj(void);
 	
 	virtual		bool			createNewDocFile(void) = 0;
-	virtual		bool			openDocFile(int openMode);
+	virtual		bool			openDocFile(fOpenMode openMode);
 	virtual		bool			saveDocFile(const char* newFilePath=NULL);
 					void			closeDocFile(void);
 					bool			changeDocFile(const char* newPath);
