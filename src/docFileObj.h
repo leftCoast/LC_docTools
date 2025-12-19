@@ -46,7 +46,7 @@
 //
 // Different processors all use FILE_READ, FILE_WRITE. But they define them in strange
 // ways. So you can't rely on them for anything but actually opening files. If you want to
-// pass what the user is asking for? You can't use them. (Was a shock to ne!)
+// pass what the user is asking for? You can't use them. (Was a shock to me!)
 //
 // Hence : fOpenMode
 //
