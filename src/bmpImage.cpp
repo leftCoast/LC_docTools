@@ -84,14 +84,15 @@ bmpImage::~bmpImage(void) { freeStr(&newImgPath); }
 
 bool bmpImage::setNewBMPFile(const char* BMPPath,int w,int h) {
 
-	tempStr newPath(BMPPath);								// Save a local copy..
-	
-	closeDocFile();											// Close the original file, if any.
-	if (createNewBMPFile(newPath.getStr(),w,h)) {	// If we can setup the new file..
-		if (changeDocFile(newPath.getStr())) {			// If we can change to this new file..
-			return  true;										// We'll call that a success.
-		}															//
-	}																//
+	if (BMPPath) {													// They sneaking in a NULL on you?
+		tempStr newPath(BMPPath);								// Save a local copy..
+		closeDocFile();											// Close the original file, if any.
+		if (createNewBMPFile(newPath.getStr(),w,h)) {	// If we can setup the new file..
+			if (changeDocFile(newPath.getStr())) {			// If we can change to this new file..
+				return  true;										// We'll call that a success.
+			}															//
+		}																//
+	}
 	return false;												// Return our success.
 }
 
@@ -103,9 +104,15 @@ bool bmpImage::createNewDocFile(void) { return setNewBMPFile(newImgPath,newW,new
 // Setup for the next createNewDocFile() call.
 void bmpImage::setPWH(const char* imgPath,int w,int h) { 
 
-	heapStr(&newImgPath,imgPath);
-	newW	= w;
-	newH	= h;
+	
+	if (imgPath) {							// Watch out for NULLs!
+		heapStr(&newImgPath,imgPath);
+		newW	= w;
+		newH	= h;
+	} else {
+		newW	= 0;
+		newH	= 0;
+	}
 }
 
 
