@@ -2,7 +2,7 @@
 #include <resizeBuff.h>
 #include <strTools.h>
 #include <SDTools.h>
-//#include <debug.h>
+#include <debug.h>
 
 
 #define DEF_IMAGE_OFFSET	54

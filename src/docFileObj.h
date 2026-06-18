@@ -4,7 +4,7 @@
 
 // Ok what's this do and what's it NOT do..
 //
-// TO create a docFileObj you need a path to a document. Simple as that. Once you have
+// To create a docFileObj you need a path to a document. Simple as that. Once you have
 // this you can..
 //
 // A) Open this file to read. and it will open the file, indexed to byte 0. It then
